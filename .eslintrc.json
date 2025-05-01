@@ -1,0 +1,12 @@
+{
+    "extends": ["react-app", "react-app/jest"],
+    "rules": {
+      // unused vars become warnings
+      "no-unused-vars": "warn",
+      // allow missing deps in useEffect
+      "react-hooks/exhaustive-deps": "warn",
+      // relax invalid-anchor rules
+      "jsx-a11y/anchor-is-valid": "warn"
+    }
+  }
+  
