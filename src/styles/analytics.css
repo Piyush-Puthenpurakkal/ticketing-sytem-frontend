@@ -1,0 +1,134 @@
+.analytics-content {
+    flex: 1;
+    padding: 20px 40px;
+    overflow-y: auto;
+    background: #fff;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.analytics-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Section base */
+.section {
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.section-title.green {
+    color: #22c55e;
+}
+
+.section-title.black {
+    color: #111;
+}
+
+.options {
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+/* Chart override */
+.recharts-cartesian-grid line {
+    stroke: #e2e8f0 !important;
+}
+
+.custom-tooltip {
+    background: #000;
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+}
+
+.tooltip-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.tooltip-value {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* Descriptions */
+.section-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    max-width: 60%;
+    margin-bottom: 20px;
+}
+
+/* Metrics layouts */
+.metric {
+    font-size: 26px;
+    font-weight: 600;
+    color: #22c55e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reply-time .metric {
+    margin-left: auto;
+}
+
+.resolved-tickets .metric {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.total-chats .metric {
+    margin-left: auto;
+}
+
+/* Circular progress */
+.circular-chart {
+    transform: rotate(-90deg);
+}
+
+.circle-bg {
+    fill: none;
+}
+
+.circle {
+    fill: none;
+    transition: stroke-dashoffset 0.35s;
+}
+
+.circular-text {
+    transform: rotate(90deg);
+    font-size: 12px;
+    fill: #111;
+    font-weight: 600;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .section-description {
+        max-width: 100%;
+    }
+}

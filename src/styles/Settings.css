@@ -1,0 +1,111 @@
+.settings-page {
+    padding: 1.5rem 2rem;
+    box-sizing: border-box;
+}
+
+.settings-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.settings-container {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tab-nav {
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 2rem;
+}
+
+.tab-item {
+    display: inline-block;
+    margin-right: 2rem;
+    padding-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.tab-item.active {
+    color: #1d4e89;
+    border-bottom: 3px solid #1d4e89;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 1.75rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-with-icon input {
+    flex: none;
+    width: 600px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.info-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.tooltip {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(8px, -50%);
+    background: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.save-btn {
+    align-self: flex-end;
+    background: #1d4e89;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #154580;
+}
