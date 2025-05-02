@@ -1,3 +1,4 @@
+// src/pages/ContactCenter.js
 import React, { useState, useEffect, useContext, Fragment } from "react";
 import "../styles/contactcenter.css";
 import AxiosInstance from "../api/AxiosInstance";
@@ -72,12 +73,12 @@ export default function ContactCenter() {
     const active = tickets.find((t) => t._id === activeTicketId);
     if (!active) return;
 
-    const allowed = active.assignedTo?._id === user.id;
+    const allowed = active.assignedTo?._id === user._id;
     setAccessGranted(allowed);
     setSystemMessage(
       allowed ? "" : "This chat is assigned to someone else; you cannot reply."
     );
-  }, [tickets, activeTicketId, user.id]);
+  }, [tickets, activeTicketId, user._id]);
 
   const activeTicket = tickets.find((t) => t._id === activeTicketId) || {};
 
@@ -97,14 +98,10 @@ export default function ContactCenter() {
   };
 
   const handleReassignClick = (member) => {
-    setPrevAssignee(null);
-    setPendingMember(null);
-
-    if (member.user?._id === user.id) {
+    if (member.user?._id === user._id) {
       alert("You cannot assign the ticket to yourself.");
       return;
     }
-
     setPrevAssignee(activeTicket.assignedTo || null);
     setPendingMember(member);
     setOpenTeammates(false);
@@ -157,7 +154,6 @@ export default function ContactCenter() {
         setAccessGranted(false);
         setMissed(false);
         setSystemMessage("This chat has been resolved.");
-
         const remaining = tickets.filter((t) => t._id !== activeTicketId);
         setActiveTicketId(remaining[0]?._id || null);
       })
@@ -211,7 +207,6 @@ export default function ContactCenter() {
             onClick={() => {
               setActiveTicketId(t._id);
               setMissed(t.status === "unresolved");
-              setAccessGranted(true);
               setIsResolved(false);
               setSystemMessage("");
             }}
@@ -343,7 +338,6 @@ export default function ContactCenter() {
         </div>
 
         <div className="details-subtitle">Manage</div>
-        {/* Assign Dropdown */}
         <div className="dropdown-wrapper">
           <div
             className="details-field dropdown flat"
@@ -364,7 +358,7 @@ export default function ContactCenter() {
           {openTeammates && (
             <div className="dropdown-options">
               {teamMembers
-                .filter((tm) => tm.user?._id !== user.id)
+                .filter((tm) => tm.user?._id !== user._id)
                 .map((tm) => (
                   <div
                     key={tm._id}
@@ -387,7 +381,6 @@ export default function ContactCenter() {
           )}
         </div>
 
-        {/* Status Dropdown */}
         <div className="dropdown-wrapper">
           <div
             className="details-field dropdown flat"

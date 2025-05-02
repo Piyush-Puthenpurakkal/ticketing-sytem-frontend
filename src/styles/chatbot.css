@@ -14,7 +14,6 @@
     color: #333;
 }
 
-/* two-column grid */
 .chatbot-grid {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
@@ -64,7 +63,6 @@
     color: #ffffff;
 }
 
-/* body */
 .bot-body {
     flex: 1;
     padding: 20px;
@@ -75,7 +73,6 @@
     overflow-y: auto;
 }
 
-/* each bot message */
 .bot-msg {
     display: flex;
     align-items: flex-start;
@@ -91,7 +88,7 @@
 }
 
 .msg-text {
-    background: #F3F4F6;
+    background: #fff;
     padding: 12px 16px;
     border-radius: 16px;
     color: #1F2937;
@@ -170,7 +167,6 @@
     transform: translateY(-50%);
     width: 32px;
     height: 32px;
-    background: #33475B;
     border: none;
     border-radius: 50%;
     display: flex;
@@ -196,7 +192,7 @@
 
 .toast-avatar-container {
     position: absolute;
-    top: 30%;
+    top: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
