@@ -76,7 +76,6 @@
     cursor: pointer;
 }
 
-/* ADD BUTTON */
 .add-btn-container {
     display: flex;
     justify-content: flex-end;
@@ -132,7 +131,6 @@
     line-height: 1.4;
 }
 
-/* FORM FIELDS */
 .modal-form {
     display: flex;
     flex-direction: column;
@@ -149,7 +147,6 @@
     outline: none;
 }
 
-/* MODAL ACTIONS */
 .modal-actions {
     display: flex;
     justify-content: flex-end;
@@ -184,7 +181,7 @@
     background: #154580;
 }
 
-.delete-container {
+delete-container {
     position: relative;
 }
 
@@ -253,23 +250,36 @@
     background: #154580;
 }
 
-/* Team responsive */
 @media (max-width: 720px) {
     .team-page {
         padding: 1rem;
     }
 
     .team-table {
-        display: none;
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .add-btn-container {
-        margin-bottom: 1rem;
+    .team-table thead,
+    .team-table tbody {
+        display: table;
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    .modal {
-        width: 90%;
-        padding: 1rem;
+    .team-table th,
+    .team-table td {
+        white-space: nowrap;
+        padding: 0.5rem;
+    }
+
+    .team-table thead {
+        background: #f9fafb;
+        position: sticky;
+        top: 0;
+        z-index: 5;
     }
 }
 
