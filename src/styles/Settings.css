@@ -109,3 +109,62 @@ form {
 .save-btn:hover {
     background: #154580;
 }
+
+@media (max-width: 720px) {
+    .settings-page {
+        padding: 1rem;
+    }
+
+    .settings-container {
+        padding: 1.5rem;
+    }
+
+    .tab-item {
+        margin-right: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .input-with-icon input {
+        width: 100%;
+        font-size: 0.95rem;
+        padding: 0.65rem 0.9rem;
+    }
+
+    .save-btn {
+        padding: 0.65rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .tooltip {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-title {
+        font-size: 1.125rem;
+    }
+
+    .tab-item {
+        margin-right: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .input-with-icon {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .input-with-icon input {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .save-btn {
+        width: 100%;
+        text-align: center;
+        font-size: 0.95rem;
+    }
+}
