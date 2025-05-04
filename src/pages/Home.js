@@ -1,7 +1,7 @@
-// src/pages/Home.js
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import AxiosInstance from "../api/AxiosInstance";
 import "../styles/Home.css";
 
 import HublyLogo from "../assets/hubly-logo.png";
@@ -42,16 +42,50 @@ export default function Home() {
   // control tooltip vs preview
   const [hoverToast, setHoverToast] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [introForm, setIntroForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+  });
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
+  const handleSend = () => {
+    const trimmed = inputValue.trim();
+    if (!trimmed) return;
+    setMessages((prev) => [...prev, { sender: "user", text: trimmed }]);
+    setInputValue("");
+
+    // Make a call to the backend chatbot
+    AxiosInstance.post("/chatbot", { message: trimmed })
+      .then((res) => {
+        if (res.data?.reply) {
+          setMessages((prev) => [
+            ...prev,
+            { sender: "bot", text: res.data.reply },
+          ]);
+        }
+      })
+      .catch(() => {
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "Oops, something went wrong!" },
+        ]);
+      });
+  };
+
   // preview data
   const headerColor = "#33475B";
   const bgColor = "#EEEEEE";
-  const messages = ["How can I help you?", "Ask me anything!"];
+  const [messages, setMessages] = useState([
+    { sender: "bot", text: "How can I help you?" },
+    { sender: "bot", text: "Ask me anything!" },
+  ]);
+
   const welcomeMsg =
     "👋 Want to chat about Hubly? I'm a chatbot here to help you find your way.";
   const intro = {
@@ -428,27 +462,72 @@ export default function Home() {
                 <span className="bot-name">Hubly</span>
               </div>
               <div className="bot-body" style={{ backgroundColor: bgColor }}>
-                {messages.map((msg, i) => (
-                  <div key={i} className="bot-msg">
-                    <img src={BotAvatar} className="msg-avatar" alt="bot" />
-                    <div className="msg-text">{msg}</div>
-                  </div>
-                ))}
+                {messages.map((msg, i) =>
+                  msg.sender === "bot" ? (
+                    <div key={i} className="bot-msg">
+                      <img src={BotAvatar} className="msg-avatar" alt="bot" />
+                      <div className="msg-text">{msg.text}</div>
+                    </div>
+                  ) : (
+                    <div key={i} className="user-msg">
+                      <div className="msg-text">{msg.text}</div>
+                    </div>
+                  )
+                )}
+
                 {/* Introduction Form */}
                 <div className="bot-form">
                   <h4 className="form-title">Introduction Yourself</h4>
                   <label>Your name</label>
-                  <input type="text" placeholder={intro.name} readOnly />
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    value={introForm.name}
+                    onChange={(e) =>
+                      setIntroForm({ ...introForm, name: e.target.value })
+                    }
+                  />
+
                   <label>Your Phone</label>
-                  <input type="text" placeholder={intro.phone} readOnly />
+                  <input
+                    type="text"
+                    placeholder="Your phone"
+                    value={introForm.phone}
+                    onChange={(e) =>
+                      setIntroForm({ ...introForm, phone: e.target.value })
+                    }
+                  />
                   <label>Your Email</label>
-                  <input type="text" placeholder={intro.email} readOnly />
-                  <button className="btn-primary">Thank You!</button>
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    value={introForm.email}
+                    onChange={(e) =>
+                      setIntroForm({ ...introForm, email: e.target.value })
+                    }
+                  />
+                  <button
+                    className="btn-primary"
+                    onClick={() => {
+                      AxiosInstance.put("/widget", { intro: introForm })
+                        .then(() => alert("Thank you! Info saved."))
+                        .catch(() => alert("Failed to save intro info."));
+                    }}
+                  >
+                    Thank You!
+                  </button>
                 </div>
               </div>
               <div className="bot-input">
-                <input className="chat-input" placeholder="Write a message" />
-                <button className="send-button">
+                <input
+                  className="chat-input"
+                  placeholder="Write a message"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                />
+
+                <button className="send-button" onClick={handleSend}>
                   <img src={SendIcon} alt="Send" />
                 </button>
               </div>

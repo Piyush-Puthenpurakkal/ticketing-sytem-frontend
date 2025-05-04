@@ -127,7 +127,6 @@
     padding: 0 10px;
 }
 
-/* bubble base */
 .chat-bubble {
     display: flex;
     align-items: center;
@@ -303,7 +302,6 @@
     width: 100%;
 }
 
-/* 🛠 Fixed dropdown issue */
 .dropdown-options {
     position: absolute;
     top: calc(100% + 5px);
@@ -330,7 +328,6 @@
     background: #f3f4f6;
 }
 
-/* Modals */
 .confirm-modal {
     position: fixed;
     top: 50%;
@@ -397,4 +394,55 @@
     display: flex;
     align-items: center;
     width: 100%;
+}
+
+.back-btn {
+    display: none;
+}
+
+
+@media (max-width: 720px) {
+    .contact-center-wrapper {
+        flex-direction: column;
+    }
+
+    .contact-center-wrapper.list .contact-list {
+        display: block;
+    }
+
+    .contact-center-wrapper.list .chat-window,
+    .contact-center-wrapper.list .ticket-details {
+        display: none;
+    }
+
+    .contact-center-wrapper.chat .chat-window {
+        display: block;
+    }
+
+    .contact-center-wrapper.chat .contact-list,
+    .contact-center-wrapper.chat .ticket-details {
+        display: none;
+    }
+
+    .contact-center-wrapper.details .ticket-details {
+        display: block;
+    }
+
+    .contact-center-wrapper.details .contact-list,
+    .contact-center-wrapper.details .chat-window {
+        display: none;
+    }
+
+    .back-btn {
+        display: inline-block;
+        background: none;
+        border: none;
+        font-size: 1.25rem;
+        margin: 0.5rem 1rem;
+        cursor: pointer;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
 }

@@ -1,5 +1,5 @@
-// src/pages/ContactCenter.js
 import React, { useState, useEffect, useContext, Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/contactcenter.css";
 import AxiosInstance from "../api/AxiosInstance";
 import AuthContext from "../context/AuthContext";
@@ -24,6 +24,7 @@ const formatDate = (iso) =>
   });
 
 export default function ContactCenter() {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
   const [tickets, setTickets] = useState([]);
@@ -44,6 +45,8 @@ export default function ContactCenter() {
   const [showReassignModal, setShowReassignModal] = useState(false);
   const [pendingMember, setPendingMember] = useState(null);
   const [prevAssignee, setPrevAssignee] = useState(null);
+
+  const [view, setView] = useState("list");
 
   useEffect(() => {
     AxiosInstance.get("/tickets")
@@ -72,7 +75,6 @@ export default function ContactCenter() {
   useEffect(() => {
     const active = tickets.find((t) => t._id === activeTicketId);
     if (!active) return;
-
     const allowed = active.assignedTo?._id === user._id;
     setAccessGranted(allowed);
     setSystemMessage(
@@ -85,7 +87,6 @@ export default function ContactCenter() {
   const handleSend = () => {
     const text = inputValue.trim();
     if (!text) return;
-
     AxiosInstance.post(`/chat/${activeTicketId}/messages`, {
       sender: `${user.firstName} ${user.lastName}`,
       text,
@@ -95,6 +96,23 @@ export default function ContactCenter() {
         setInputValue("");
       })
       .catch(console.error);
+  };
+
+  const handleEntryClick = (t) => {
+    setActiveTicketId(t._id);
+    setMissed(t.status === "unresolved");
+    setIsResolved(false);
+    setSystemMessage("");
+    setView("chat");
+  };
+
+  const handleNameClick = () => {
+    setView("details");
+  };
+
+  const handleBack = () => {
+    if (view === "details") setView("chat");
+    else setView("list");
   };
 
   const handleReassignClick = (member) => {
@@ -113,7 +131,6 @@ export default function ContactCenter() {
       setShowReassignModal(false);
       return;
     }
-
     const assignedUserId = pendingMember.user?._id || pendingMember._id;
     AxiosInstance.put(`/tickets/${activeTicketId}/assign`, {
       userId: assignedUserId,
@@ -196,7 +213,8 @@ export default function ContactCenter() {
   };
 
   return (
-    <div className="contact-center-wrapper">
+    <div className={`contact-center-wrapper ${view}`}>
+      {/* CONTACT LIST */}
       <div className="contact-list">
         <h3 className="section-title">Contact Center</h3>
         <h4 className="chats-label">Chats</h4>
@@ -204,12 +222,7 @@ export default function ContactCenter() {
           <div
             key={t._id}
             className={`chat-entry ${t._id === activeTicketId ? "active" : ""}`}
-            onClick={() => {
-              setActiveTicketId(t._id);
-              setMissed(t.status === "unresolved");
-              setIsResolved(false);
-              setSystemMessage("");
-            }}
+            onClick={() => handleEntryClick(t)}
           >
             <div className="chat-info">
               <span className="chat-name">
@@ -221,10 +234,22 @@ export default function ContactCenter() {
         ))}
       </div>
 
+      {/* CHAT WINDOW */}
       <div className="chat-window">
         <div className="ticket-header">
-          <span>Ticket# {activeTicket._id?.slice(-6)}</span>
-          <img src={HomeIcon} className="home-icon" alt="Home" />
+          <button className="back-btn" onClick={handleBack}>
+            ←
+          </button>
+          <span className="clickable" onClick={handleNameClick}>
+            Ticket# {activeTicket._id?.slice(-6)}
+          </span>
+          <img
+            src={HomeIcon}
+            className="home-icon"
+            alt="Home"
+            onClick={() => navigate("/dashboard")}
+            style={{ cursor: "pointer" }}
+          />
         </div>
 
         <div className="chat-content">
@@ -250,7 +275,7 @@ export default function ContactCenter() {
                 >
                   {!isOutgoing && (
                     <img
-                      src={msg.avatar}
+                      src={msg.avatar || defaultAvatar}
                       className="chat-avatar"
                       alt={msg.sender}
                     />
@@ -261,7 +286,7 @@ export default function ContactCenter() {
                   </div>
                   {isOutgoing && (
                     <img
-                      src={msg.avatar}
+                      src={msg.avatar || defaultAvatar}
                       className="chat-avatar"
                       alt={msg.sender}
                     />
@@ -296,8 +321,12 @@ export default function ContactCenter() {
         )}
       </div>
 
+      {/* TICKET DETAILS */}
       <div className="ticket-details">
         <div className="details-header">
+          <button className="back-btn" onClick={handleBack}>
+            ←
+          </button>
           <span className="details-name">
             {activeTicket.user
               ? `${activeTicket.user.firstName} ${activeTicket.user.lastName}`

@@ -600,6 +600,20 @@ body {
     cursor: pointer;
 }
 
+.user-msg {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.5rem 0;
+}
+
+.user-msg .msg-text {
+    background: #0a2640;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 12px 12px 0 12px;
+    max-width: 80%;
+}
+
 /* ─── Animation ─────────────────────────────────────────────── */
 @keyframes slide-up {
     from {
