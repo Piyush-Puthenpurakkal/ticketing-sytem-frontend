@@ -126,9 +126,34 @@
     font-weight: 600;
 }
 
-/* Responsive tweaks */
-@media (max-width: 768px) {
-    .section-description {
-        max-width: 100%;
+@media (max-width: 720px) {
+    .analytics-content {
+        padding: 1rem;
+    }
+
+    .section {
+        margin-bottom: 1.5rem;
+    }
+
+    .missed-chats,
+    .reply-time,
+    .resolved-tickets,
+    .total-chats {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .analytics-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.125rem;
+    }
+
+    .metric.reply,
+    .metric.total {
+        font-size: 1rem;
     }
 }

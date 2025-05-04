@@ -252,3 +252,35 @@
 .confirm-btn:hover {
     background: #154580;
 }
+
+/* Team responsive */
+@media (max-width: 720px) {
+    .team-page {
+        padding: 1rem;
+    }
+
+    .team-table {
+        display: none;
+    }
+
+    .add-btn-container {
+        margin-bottom: 1rem;
+    }
+
+    .modal {
+        width: 90%;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .modal-form input,
+    .modal-form select {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+}
